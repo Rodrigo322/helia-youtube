@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
-import Login from "./auth/login";
+import Login from "./stacks/login";
 
 export default function Index() {
   const router = useRouter();

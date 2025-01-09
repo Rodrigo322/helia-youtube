@@ -8,8 +8,15 @@ import {
   MagnifyingGlass,
   SlidersHorizontal,
 } from "phosphor-react-native";
+import { useRouter } from "expo-router";
 
 export default function Home() {
+  const router = useRouter();
+
+  function handleDetails() {
+    router.navigate("/stacks/details");
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar />
@@ -38,7 +45,7 @@ export default function Home() {
 
       <View style={styles.content}>
         <View style={styles.card}>
-          <Pressable style={styles.cardButton}>
+          <Pressable onPress={handleDetails} style={styles.cardButton}>
             <Image style={styles.cardImage} source={require("../assets/hotel.png")} />
             <View style={styles.cardInfo}>
               <Text style={styles.cardInfoTitle}>Hotal Nova Vista</Text>
