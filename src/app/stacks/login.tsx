@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import {
   ArrowLeft,
   EnvelopeSimple,
@@ -17,11 +18,12 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
+      <StatusBar />
       <TouchableOpacity style={styles.header}>
         <ArrowLeft size={32} color="#f4f4f4" weight="regular" />
       </TouchableOpacity>
 
-      <Text style={styles.wellcome}>Faça login na sua conta</Text>
+      <Text style={styles.welcome}>Faça login na sua conta</Text>
 
       <View style={styles.content}>
         <View style={styles.contentInput}>
@@ -76,7 +78,7 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginTop: 50,
   },
-  wellcome: {
+  welcome: {
     color: "#f4f4f4",
     marginTop: 50,
     fontSize: 24,

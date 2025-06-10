@@ -1,14 +1,31 @@
+import { useRouter } from "expo-router";
 import { ArrowLeft, Bookmark, DotsThree, MapPin } from "phosphor-react-native";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function Details() {
+  const navigate = useRouter();
+
+  const handleGoBack = () => {
+    navigate.back();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image style={styles.image} source={require("../../assets/hotel.png")} />
 
         <View style={styles.headerButtons}>
-          <ArrowLeft color="#f4f4f4" weight="fill" size={32} />
+          <Pressable onPress={handleGoBack}>
+            <ArrowLeft color="#f4f4f4" weight="fill" size={32} />
+          </Pressable>
 
           <View style={styles.headerButtonsInfo}>
             <Bookmark color="#f4f4f4" weight="fill" size={32} />
