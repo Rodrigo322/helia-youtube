@@ -7,8 +7,16 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
-import { Bell, BookmarkSimple, SlidersHorizontal, MagnifyingGlass } from "phosphor-react-native";
+import {
+  Bell,
+  BookmarkSimple,
+  SlidersHorizontal,
+  MagnifyingGlass,
+  ChatsTeardrop,
+} from "phosphor-react-native";
+import { useRouter } from "expo-router";
 
 const filters = ["Recommended", "Popular", "Trending"];
 
@@ -86,13 +94,21 @@ const recentHotels = [
   },
 ];
 
-export default function HomeScreen() {
+export default function Home() {
+  const navigate = useRouter();
+
+  const handleHotelPress = () => {
+    navigate.push("/stacks/details");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.logo}>⚡ Helia</Text>
+          <Text style={styles.logo}>
+            <ChatsTeardrop size={30} color="#1ab65c" weight="duotone" /> Helia
+          </Text>
           <View style={styles.headerIcons}>
             <TouchableOpacity style={styles.iconWrapper}>
               <Bell size={20} color="#fff" />
@@ -100,7 +116,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <Text style={styles.greeting}>Hello, Daniel 👋</Text>
+        <Text style={styles.greeting}>Olá, Rodrigo Lucas 👋</Text>
 
         {/* Search Bar */}
         <View style={styles.searchContainer}>
@@ -163,7 +179,7 @@ export default function HomeScreen() {
         </View>
 
         {recentHotels.map((hotel) => (
-          <View key={hotel.id} style={styles.recentCard}>
+          <Pressable onPress={handleHotelPress} key={hotel.id} style={styles.recentCard}>
             <Image source={{ uri: hotel.image }} style={styles.recentImage} />
             <View style={{ flex: 1 }}>
               <Text style={styles.recentName}>{hotel.name}</Text>
@@ -177,7 +193,7 @@ export default function HomeScreen() {
               <Text style={styles.perNight}>/ night</Text>
               <BookmarkSimple size={20} color="#fff" style={{ marginTop: 8 }} />
             </View>
-          </View>
+          </Pressable>
         ))}
       </ScrollView>
     </View>
