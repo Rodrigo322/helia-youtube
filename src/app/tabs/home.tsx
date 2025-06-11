@@ -203,7 +203,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0C0C0C",
+    backgroundColor: "#111827",
     paddingHorizontal: 20,
     paddingTop: 60,
   },
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#1F2937",
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
   },
   recentCard: {
     flexDirection: "row",
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#1F2937",
     padding: 12,
     borderRadius: 16,
     marginBottom: 16,

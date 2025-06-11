@@ -110,21 +110,6 @@ export default function Details() {
               <BellRinging size={32} color="#50F077" />
               <Text style={styles.facilityText}>24/7 Open</Text>
             </View>
-            {/* Add more facility items */}
-          </View>
-        </View>
-
-        {/* Location (Map Placeholder) */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Location</Text>
-          <View style={styles.mapPlaceholder}>
-            {/* You would integrate a map component here, e.g., react-native-maps */}
-            <Image
-              source={require("../../assets/hotel.png")} // Replace with your map image or component
-              style={styles.mapImage}
-            />
-            {/* You could add a MapPin icon overlay */}
-            <MapPin size={32} color="#50F077" style={styles.mapPinOverlay} weight="fill" />
           </View>
         </View>
 
@@ -134,7 +119,7 @@ export default function Details() {
             <Text style={styles.sectionTitle}>Review</Text>
             <View style={styles.starsContainer}>
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} color="#FFD700" weight="fill" /> // Filled stars
+                <Star key={i} size={16} color="#FFD700" weight="fill" />
               ))}
               <Text style={styles.reviewCount}>(4.0 out of 5)</Text>
             </View>
@@ -214,7 +199,7 @@ export default function Details() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1C1C1C", // Dark background color
+    backgroundColor: "#0C0C0C", // Dark background color
   },
   scrollViewContent: {
     paddingBottom: 100, // To make space for the fixed bottom bar

@@ -1,156 +1,234 @@
-import { useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
 import {
-  ArrowLeft,
-  EnvelopeSimple,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+} from "react-native";
+import { useRouter } from "expo-router";
+import {
+  Envelope,
+  Lock,
+  Eye,
+  EyeSlash,
   FacebookLogo,
   GoogleLogo,
-  LockKey,
+  AppleLogo,
+  ArrowLeft,
 } from "phosphor-react-native";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Login() {
+export default function SignIn() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  function handleTabsHome() {
-    router.navigate("/tabs/home");
-  }
+  const navigate = useRouter();
+
+  const handleToHome = () => {
+    navigate.push("/tabs/home");
+  };
+  const handleSignUp = () => {
+    // Handle sign-up logic here
+  };
 
   return (
-    <View style={styles.container}>
-      <StatusBar />
-      <TouchableOpacity style={styles.header}>
-        <ArrowLeft size={32} color="#f4f4f4" weight="regular" />
-      </TouchableOpacity>
-
-      <Text style={styles.welcome}>Faça login na sua conta</Text>
-
-      <View style={styles.content}>
-        <View style={styles.contentInput}>
-          <EnvelopeSimple size={32} color="#757575" />
-          <TextInput placeholder="Seu e-mail" style={styles.input} placeholderTextColor="#757575" />
-        </View>
-
-        <View style={styles.contentInput}>
-          <LockKey size={32} color="#757575" />
-          <TextInput placeholder="Sua senha" style={styles.input} placeholderTextColor="#757575" />
-        </View>
-      </View>
-
-      <TouchableOpacity onPress={handleTabsHome} style={styles.buttonSignIn}>
-        <Text style={styles.buttonSignInText}>Entrar</Text>
-      </TouchableOpacity>
-
-      <View style={styles.ContainerSeparator}>
-        <View style={styles.separator} />
-        <Text style={styles.ContainerSeparatorText}>ou continuar com</Text>
-        <View style={styles.separator} />
-      </View>
-
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton}>
-          <GoogleLogo color="#1ab55c" size={32} weight="fill" />
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+          <ArrowLeft color="#fff" size={24} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.footerButton}>
-          <FacebookLogo color="#1ab55c" size={32} weight="fill" />
-        </TouchableOpacity>
-      </View>
+        <Text style={styles.title}>Login to your</Text>
+        <Text style={[styles.title, { fontWeight: "bold" }]}>Account</Text>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Não possui conta?</Text>
+        <View style={styles.inputContainer}>
+          <Envelope color="#9CA3AF" size={18} style={styles.icon} />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="#9CA3AF"
+            style={styles.input}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Lock color="#9CA3AF" size={18} style={styles.icon} />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="#9CA3AF"
+            secureTextEntry={!showPassword}
+            style={styles.input}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.iconRight}>
+            {showPassword ? (
+              <Eye color="#9CA3AF" size={18} />
+            ) : (
+              <EyeSlash color="#9CA3AF" size={18} />
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.rememberRow}>
+          <TouchableOpacity
+            onPress={() => setRememberMe(!rememberMe)}
+            style={[styles.checkbox, rememberMe && styles.checkboxChecked]}
+          />
+          <Text style={styles.rememberText}>Remember me</Text>
+        </View>
+
+        <TouchableOpacity onPress={handleToHome} style={styles.signInButton}>
+          <Text style={styles.signInText}>Sign in</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity>
-          <Text style={styles.footerButtonText}>Cadastre-se</Text>
+          <Text style={styles.forgotText}>Forgot the password?</Text>
         </TouchableOpacity>
-      </View>
-    </View>
+
+        <View style={styles.dividerRow}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>or continue with</Text>
+          <View style={styles.divider} />
+        </View>
+
+        <View style={styles.socialRow}>
+          <TouchableOpacity style={styles.socialButton}>
+            <FacebookLogo size={24} color="#1877F2" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialButton}>
+            <GoogleLogo size={24} color="#EA4335" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialButton}>
+            <AppleLogo size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.signUpRow}>
+          <Text style={styles.signUpText}>Don't have an account?</Text>
+          <TouchableOpacity>
+            <Text style={styles.signUpLink}> Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#111827",
+  },
   container: {
-    flex: 1,
-    backgroundColor: "#181a20",
-    alignItems: "center",
-    paddingHorizontal: 20,
+    padding: 20,
+    paddingTop: Platform.OS === "android" ? 40 : 0,
   },
-  header: {
-    alignSelf: "flex-start",
-    marginTop: 50,
+  backButton: {
+    marginBottom: 30,
   },
-  welcome: {
-    color: "#f4f4f4",
-    marginTop: 50,
-    fontSize: 24,
-    fontWeight: "600",
+  title: {
+    color: "#ffffff",
+    fontSize: 32,
+    lineHeight: 38,
   },
-  content: {
-    width: "100%",
-    marginTop: 50,
-    alignItems: "center",
-    gap: 20,
-  },
-  contentInput: {
-    width: "100%",
-    height: 56,
-    backgroundColor: "#1f222a",
+  inputContainer: {
+    backgroundColor: "#1F2937",
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    gap: 10,
-  },
-  input: { flex: 1, color: "#757575" },
-  buttonSignIn: {
-    backgroundColor: "#1ab55c",
-    width: "100%",
+    paddingHorizontal: 12,
+    marginTop: 20,
     height: 56,
-    borderRadius: 32,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
   },
-  buttonSignInText: { color: "#f4f4f4", fontSize: 16, fontWeight: "800" },
-  ContainerSeparator: {
-    width: "100%",
-    marginTop: 50,
+  input: {
+    flex: 1,
+    color: "#ffffff",
+    fontSize: 16,
+  },
+  icon: {
+    marginRight: 8,
+  },
+  iconRight: {
+    marginLeft: 8,
+  },
+  rememberRow: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    gap: 10,
+    marginVertical: 16,
   },
-  separator: {
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderColor: "#4ADE80",
+    borderWidth: 2,
+    borderRadius: 4,
+    marginRight: 10,
+  },
+  checkboxChecked: {
+    backgroundColor: "#4ADE80",
+  },
+  rememberText: {
+    color: "#D1D5DB",
+    fontSize: 14,
+  },
+  signInButton: {
+    backgroundColor: "#4ADE80",
+    paddingVertical: 16,
+    borderRadius: 16,
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  signInText: {
+    color: "#111827",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  forgotText: {
+    color: "#4ADE80",
+    fontSize: 14,
+    textAlign: "center",
+    marginBottom: 24,
+  },
+  dividerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 24,
+  },
+  divider: {
+    flex: 1,
     height: 1,
-    backgroundColor: "#757575",
-    flex: 1,
+    backgroundColor: "#374151",
   },
-  ContainerSeparatorText: {
-    color: "#f4f4f4",
-    fontSize: 16,
-    fontWeight: "400",
+  dividerText: {
+    color: "#9CA3AF",
+    marginHorizontal: 12,
+    fontSize: 13,
   },
-
-  footer: {
-    marginTop: 50,
+  socialRow: {
     flexDirection: "row",
-    gap: 10,
+    justifyContent: "space-around",
+    marginBottom: 24,
   },
-  footerButton: {
-    width: 100,
-    height: 60,
-    backgroundColor: "#1f222a",
-    justifyContent: "center",
-    alignItems: "center",
+  socialButton: {
+    backgroundColor: "#1F2937",
+    padding: 14,
     borderRadius: 12,
   },
-  footerText: {
-    color: "#f4f4f4",
-    fontSize: 16,
-    fontWeight: "400",
+  signUpRow: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  footerButtonText: {
-    color: "#1ab55c",
-    fontSize: 16,
-    fontWeight: "400",
+  signUpText: {
+    color: "#9CA3AF",
+    fontSize: 14,
+  },
+  signUpLink: {
+    color: "#4ADE80",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
